@@ -101,7 +101,7 @@ header.solid{background:rgba(11,11,20,.88);backdrop-filter:blur(10px);-webkit-ba
 .hero::after{content:"";position:absolute;width:640px;height:640px;right:-120px;top:0;z-index:-1;background:radial-gradient(circle,rgba(255,56,100,.32),transparent 62%)}
 .hero-grid{display:grid;grid-template-columns:1.05fr 1fr;gap:44px;align-items:center}
 .hero-copy{min-width:0}
-.hero h1{font-family:var(--f-sign);font-weight:400;font-size:clamp(2.8rem,6.6vw,5.6rem);line-height:.95;margin:16px 0 22px;text-shadow:4px 4px 0 var(--laser)}
+.hero h1{font-family:var(--f-sign);font-weight:400;font-size:clamp(2.6rem,5.4vw,4.9rem);line-height:.95;margin:16px 0 22px;text-shadow:4px 4px 0 var(--laser)}
 .hero h1 em{font-style:normal;color:var(--volt);display:inline-block;animation:glitch 3.2s steps(1) infinite}
 @keyframes glitch{0%,92%,100%{transform:none;text-shadow:4px 4px 0 var(--laser)}93%{transform:translate(-3px,1px);text-shadow:-4px 0 var(--pixel),4px 0 var(--laser)}95%{transform:translate(3px,-1px);text-shadow:4px 0 var(--pixel),-4px 0 var(--laser)}97%{transform:translate(-1px,0)}}
 .lead{font-size:1.15rem;color:var(--dim);max-width:31em;margin:0 0 32px}
@@ -130,7 +130,8 @@ header.solid{background:rgba(11,11,20,.88);backdrop-filter:blur(10px);-webkit-ba
   .screen{border-radius:14px}
   .coin{width:50px;height:50px;left:-10px;font-size:.55rem}
   .actions .btn{flex:1 1 auto}
-  .hud b{font-size:1.2rem}
+  .hud b{font-size:1.05rem;white-space:nowrap}
+  .hud div{padding:10px}
 }
 
 /* ---------- Ticker ---------- */
@@ -181,7 +182,8 @@ section{padding-block:110px;position:relative}
 .slot small{font-family:var(--f-term);font-size:1.15rem;color:var(--volt)}
 .note{margin-top:20px;font-family:var(--f-term);font-size:1.1rem;color:var(--dim)}
 @media (max-width:900px){
-  .select{grid-template-columns:1fr}
+  .select{grid-template-columns:1fr;gap:14px}
+  .roster{order:-1}
   .roster{grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:minmax(220px,72%);overflow-x:auto;scroll-snap-type:x mandatory;padding:12px 2px 10px;-webkit-overflow-scrolling:touch;scrollbar-width:thin}
   .slot{scroll-snap-align:start}
   .detail .body{padding:20px}
@@ -508,7 +510,7 @@ function showDetail(){const it=M[cat][sel];
   [...ros.children].forEach((b,i)=>b.setAttribute('aria-pressed',i===sel))}
 function showCat(c){cat=c;sel=0;
   ros.innerHTML=M[c].map((it,i)=>`<button class="slot" type="button" aria-pressed="${i===0}"><img loading="lazy" src="${U(it.img,160,160,70)}" alt=""><span><b>${it.n}</b><small>${brl(it.p)}</small></span></button>`).join('');
-  [...ros.children].forEach((b,i)=>b.addEventListener('click',()=>{sel=i;showDetail();if(innerWidth<900)det.scrollIntoView({block:'nearest'})}));
+  [...ros.children].forEach((b,i)=>b.addEventListener('click',()=>{sel=i;showDetail();}));
   tabs.forEach(t=>t.setAttribute('aria-selected',t.dataset.t===c));showDetail();ros.scrollLeft=0}
 tabs.forEach(t=>t.addEventListener('click',()=>showCat(t.dataset.t)));showCat('lanches');
 document.addEventListener('keydown',e=>{const r=det.getBoundingClientRect();if(r.top>innerHeight||r.bottom<0)return;const n=M[cat].length;if(e.key==='ArrowRight'||e.key==='ArrowDown'){sel=(sel+1)%n;showDetail()}if(e.key==='ArrowLeft'||e.key==='ArrowUp'){sel=(sel-1+n)%n;showDetail()}});
